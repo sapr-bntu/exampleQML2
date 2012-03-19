@@ -1,101 +1,41 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
+import "Core"   // подключаем модуль с кнопками
+
 
 Rectangle {
     width: 360
     height: 360
 
-    Text {
-        id:txt
-        text: qsTr("Hello World")
-        anchors.centerIn: parent
-    }
+    //    выравнивание в один столбец
+    Column
+    {
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: 10
 
-
-
-    Rectangle {
-        id: button1
-        x: 127
-        y: 71
-        width: 106
-        height: 46
-
-        anchors.verticalCenterOffset: -90
-        anchors.horizontalCenterOffset: 0
-
-
-        anchors.centerIn: parent
         Text {
-            id:buttonLabel1
-            text: qsTr("button")
-            anchors.centerIn: parent
+            id:txt
+            text: qsTr("Hello World")
         }
 
-
-        property color buttonColor: "lightblue"
-        property color onHoverColor: "gold"
-        property color borderColor: "white"
-
-
-        MouseArea{
-            anchors.fill: parent
-            id:buttonMouseArea1
+        Button {
+            id: buttonRun
+            text: "Выполнить"
             onClicked:  {
-                console.log(buttonLabel1.text + " clicked" )
+                console.log(parent.text + " clicked" )  //вызываем функции из c++
                 console.log(exampleclass.hello())
-                txt.text = exampleclass.hello()
+                txt.text = exampleclass.hello()+exampleclass.hello2()
             }
-            hoverEnabled: true
-            onEntered: parent.border.color = parent.onHoverColor
-            onExited:  parent.border.color = parent.borderColor
         }
 
-        //determines the color of the button by using the conditional operator
-        color: buttonMouseArea1.pressed ? Qt.darker(buttonColor, 1.5) : buttonColor
-    }
-    Rectangle {
-        id: button2
-        x: 127
-        y: 247
-        width: 106
-        height: 46
-
-        anchors.verticalCenterOffset: 90
-        anchors.horizontalCenterOffset: 0
-
-
-        anchors.centerIn: parent
-        Text {
-            id:buttonLabel2
-            text: qsTr("Quit")
-            anchors.centerIn: parent
-        }
-
-
-        property color buttonColor: "lightblue"
-        property color onHoverColor: "gold"
-        property color borderColor: "white"
-
-
-        MouseArea{
-            anchors.fill: parent
-            id:buttonMouseArea2
-            x: 0
-            y: 0
-            anchors.rightMargin: 0
-            anchors.bottomMargin: 0
-            anchors.leftMargin: 0
-            anchors.topMargin: 0
+        Button {
+            id: buttonQuit
+            text: "Выход"
             onClicked:  {
                 Qt.quit()
             }
-            hoverEnabled: true
-            onEntered: parent.border.color = parent.onHoverColor
-            onExited:  parent.border.color = parent.borderColor
         }
 
-        //determines the color of the button by using the conditional operator
-        color: buttonMouseArea2.pressed ? Qt.darker(buttonColor, 1.5) : buttonColor
-    }
 
+    }
 }
