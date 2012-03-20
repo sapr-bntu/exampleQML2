@@ -1,4 +1,5 @@
 #include <QtGui/QApplication>
+#include <QtDeclarative/QDeclarativeContext>
 #include "qmlapplicationviewer.h"
 #include "eclass.h"
 
